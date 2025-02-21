@@ -72,6 +72,4 @@ jobs:
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
-# 순서
-# 깃허브 설정
-# yml 파일 생성 application, dev, prod, gradle build,
+
