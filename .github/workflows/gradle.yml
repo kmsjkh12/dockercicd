@@ -27,6 +27,10 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+    - uses : actions/checkout@v4
+    - run: touch .env
+    - run: echo "${{ secrets.APPLICATION }}" > .env
+    - run: cat .env
 
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
@@ -34,7 +38,7 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Build with Gradle Wrapper
-      run: 
+      run: |
         chmod +x gradlew
         ./gradlew build
 
@@ -67,3 +71,7 @@ jobs:
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+
+# 순서
+# 깃허브 설정
+# yml 파일 생성 application, dev, prod, gradle build,
