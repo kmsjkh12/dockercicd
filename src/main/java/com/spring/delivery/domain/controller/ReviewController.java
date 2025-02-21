@@ -77,4 +77,10 @@ public class ReviewController {
         return ResponseEntity.ok(apiResponseDto);
 
     }
+
+    //상점의 리뷰 전체 검색(페이지네이션)
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
 }
