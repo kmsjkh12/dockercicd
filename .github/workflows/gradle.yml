@@ -31,13 +31,20 @@ jobs:
           chmod +x gradlew
           ./gradlew build
 
-      - name: web docker build and push
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker build -f ./.deploy/Dockerfile -t ${{ secrets.DOCKER_REPO }} .
-          docker push ${{ secrets.DOCKER_REPO }}
+      - name: Log in to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      - name: docker compose
+      - name: Build and push Docker image with cache
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./.deploy/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_REPO }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_REPO }}:cache
+          cache-to: type=inline
+
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -47,7 +54,3 @@ jobs:
             cd ~/backend/.deploy
             chmod +x deploy.sh
             source deploy.sh
-
-
-
-
