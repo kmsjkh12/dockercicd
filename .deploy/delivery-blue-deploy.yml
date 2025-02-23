@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    container_name: delivery-blue
+    image: kmsjkh12/delivery
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+
+

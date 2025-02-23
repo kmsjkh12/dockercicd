@@ -12,7 +12,6 @@ services:
 
   web:
     container_name: delivery-container
-    build: .
     image: kmsjkh12/delivery
     expose:
       - 8088
