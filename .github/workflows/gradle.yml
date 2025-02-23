@@ -64,5 +64,3 @@ jobs:
 
             sudo docker image prune -f
 
-# test
-
