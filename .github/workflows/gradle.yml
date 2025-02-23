@@ -42,9 +42,9 @@ jobs:
       - name: docker compose
         uses: appleboy/ssh-action@master
         with:
-          host: ${{secret.EC2_HOST}}
+          host: ${{secrets.EC2_HOST}}
           username: ubuntu
-          key : ${{secret.EC2_PRIVATE_KEY}}
+          key : ${{secrets.EC2_PRIVATE_KEY}}
           script: |
             sudo docker rm -f $(docker ps -aq)
             sudo docker pull ${{ secrets.DOCKER_REPO }}/postgres
