@@ -3,8 +3,6 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -20,6 +18,17 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      # Gradle 캐시를 복원합니다.
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - run: touch .env
       - run: echo "${{ secrets.APPLICATION }}" > .env
