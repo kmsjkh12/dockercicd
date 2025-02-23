@@ -40,9 +40,15 @@ jobs:
           docker push ${{ secrets.DOCKER_REPO }}
 
       - name: docker compose
-        run: |
-          sudo docker rm -f $(docker ps -aq)
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/postgres
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/delivery-image
-          docker-compose up -d
-          docker image prune -f
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secret.EC2_HOST}}
+          username: ubuntu
+          key : ${{secret.EC2_PRIVATE_KEY}}
+          script: |
+            sudo docker rm -f $(docker ps -aq)
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/postgres
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/delivery-image
+            sudo docker-compose up -d
+            sudo docker image prune -f
+
