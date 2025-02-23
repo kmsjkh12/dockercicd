@@ -64,7 +64,7 @@ public class SecurityConfig{
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용
-                .requestMatchers("/test").permitAll()
+                .requestMatchers("/test", "/rap").permitAll()
                 .requestMatchers("/api/user/signUp", "/api/user/signIn").permitAll() // 로그인, 회원가입 요청 접근 허용
                 .requestMatchers(HttpMethod.GET, "/api/stores/**").permitAll() // GET 요청에 대해서만 허용
                 .requestMatchers(
