@@ -1,5 +1,15 @@
 version: '3'
 services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_USER: "postgres"         # 선택 사항 (기본값은 postgres)
+      POSTGRES_DB: "delivery"
+
   web:
     container_name: delivery-blue
     image: kmsjkh12/delivery
@@ -7,5 +17,7 @@ services:
       - 8080
     ports:
       - 8080:8080
+    depends_on:
+      - postgres
 
 
