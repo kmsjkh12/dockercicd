@@ -44,7 +44,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_REPO }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_REPO }}:cache
-          cache-to: type=inline
+          cache-to: type=registry,ref=${{ secrets.DOCKER_REPO }}:cache,mode=max
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
