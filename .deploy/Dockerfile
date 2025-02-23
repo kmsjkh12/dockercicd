@@ -9,6 +9,7 @@ RUN gradle build -x test --no-daemon
 # Stage 2: Create the runtime image
 FROM openjdk:17-jdk-slim
 WORKDIR /app
+COPY ../.env .env
 # 빌드 단계에서 생성된 JAR 파일을 복사합니다.
 # 여기서 JAR 파일 경로는 실제 빌드 산출물 경로에 맞춰 수정해야 합니다.
 COPY --from=builder /home/gradle/project/build/libs/delivery-0.0.1-SNAPSHOT.jar delivery.jar
