@@ -47,8 +47,8 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
             # 컨테이너가 있을 때만 삭제
-            if [ "$(sudo docker ps -aq)" ]; then
-              sudo docker rm -f $(sudo docker ps -aq)
+            if [ "$(sudo docker ps -qa)" ]; then
+              sudo docker rm -f $(sudo docker ps -qa)
             else
               echo "No containers to remove."
             fi
