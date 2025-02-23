@@ -15,4 +15,8 @@ public class TestController {
         return "rap";
     }
 
+    @GetMapping("/tab")
+    public String tab() {
+        return "tab";
+    }
 }
