@@ -9,4 +9,9 @@ public class TestController {
     public String test() {
         return "test";
     }
+
+    @GetMapping("/rap")
+    public String rap() {
+        return "rap";
+    }
 }
