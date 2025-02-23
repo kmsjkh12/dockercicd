@@ -19,6 +19,17 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      # Gradle 캐시를 복원합니다.
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - run: touch .env
       - run: echo "${{ secrets.APPLICATION }}" > .env
       - run: cat .env
@@ -42,7 +53,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_REPO }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_REPO }}:cache
-          cache-to: type=inline
+          cache-to: type=registry,ref=${{ secrets.DOCKER_REPO }}:cache,mode=max
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
