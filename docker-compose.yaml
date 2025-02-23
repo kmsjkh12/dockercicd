@@ -13,7 +13,7 @@ services:
   web:
     container_name: delivery-container
     build: .
-    image: delivery-image
+    image: kmsjkh12/delivery
     expose:
       - 8088
     ports:
