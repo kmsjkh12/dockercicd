@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    container_name: delivery-green
+    image: kmsjkh12/delivery
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+
+
+
